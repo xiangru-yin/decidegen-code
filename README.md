@@ -7,7 +7,7 @@ Reference implementation for **[Paper title]** — *[Journal]*, [Year].
 
 The code reconstructs **individual** social-media behaviour with the **DecideGen** agent and simulates how those individual decisions accumulate into event-level information propagation with the **Context-Constrained Social Simulator (CCSS)**. It then evaluates both levels against real-world events.
 
-Companion dataset: **[decidegen-dataset]** (`[data-repository URL]`).
+Companion dataset: **[decidegen-dataset]** (`[[data-repository URL]](https://github.com/xiangru-yin/decidegen-dataset)`).
 
 ---
 
@@ -150,8 +150,8 @@ This repository requires the companion dataset, which is **not yet public** (see
 
 | Artefact | Status |
 |---|---|
-| Code (this repo) | prepared · **private until publication** · **[code-repository URL] ([DOI])** |
-| Dataset | prepared · **private until publication** · **[data-repository URL] ([DOI])** |
+| Code (this repo) | prepared · **private until publication** · **[[code-repository URL](https://github.com/xiangru-yin/decidegen-code)] ([DOI])** |
+| Dataset | prepared · **private until publication** · **[[data-repository URL]](https://github.com/xiangru-yin/decidegen-dataset) ([DOI])** |
 | Model checkpoints | **[to be confirmed — released / on request]** |
 
 ---
@@ -178,6 +178,6 @@ This repository requires the companion dataset, which is **not yet public** (see
 
 ## Contact
 
-**[Corresponding author]** — **[email]** · **[affiliation]**
+**[Xiangru Yin]** — **[xiangruyin@stu.xjtu.edu.cn]** · **[Xi'an Jiaotong University College of Artificial Intelligence]**
 
 *(Placeholders in `[brackets]` are to be filled in before public release.)*
