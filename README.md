@@ -3,11 +3,11 @@
 [![status](https://img.shields.io/badge/status-prepared%20·%20release%20deferred-orange)]()
 [![license](https://img.shields.io/badge/license-%5Bto%20be%20set%5D-lightgrey)]()
 
-Reference implementation for **[Paper title]** — *[Journal]*, [Year].
+Reference implementation for **Simulating Social Media as It Unfolds: Faithful Collective Dynamics Emerge from Individual Behavioural Alignment** — *submitted to Science Advances*, 2026.
 
 The code reconstructs **individual** social-media behaviour with the **DecideGen** agent and simulates how those individual decisions accumulate into event-level information propagation with the **Context-Constrained Social Simulator (CCSS)**. It then evaluates both levels against real-world events.
 
-Companion dataset: **[decidegen-dataset]** (`[[data-repository URL]](https://github.com/xiangru-yin/decidegen-dataset)`).
+Companion dataset: **[decidegen-dataset](https://github.com/xiangru-yin/decidegen-dataset)**.
 
 ---
 
@@ -17,7 +17,7 @@ This repository is **not yet publicly downloadable**.
 
 - The code has been **prepared**; the public release is being finalised alongside dataset de-identification.
 - **During peer review**, private access links are provided to the editors and reviewers **on request** (see [Access](#access)).
-- **Upon publication**, the code will be made available through a public repository at **[code-repository URL] ([DOI])**.
+- **Upon publication**, the code will be made available at **[https://github.com/xiangru-yin/decidegen-code](https://github.com/xiangru-yin/decidegen-code)**.
 
 ---
 
@@ -52,12 +52,12 @@ public records ──▶ traceable bilingual corpus ──▶ underlying action 
 
 ## Models
 
-DecideGen is built on the **MediaPilot** model family, obtained by **continual pretraining on a large media-domain corpus**:
+DecideGen is built on a family of **domain-specific foundation models** developed by continual pre-training on a 24-billion-token media and public-opinion corpus; the lightweight variant follows the same pipeline on one fifth of that corpus (Supplementary Methods):
 
 | Model | Base | Used as |
 |---|---|---|
-| **MediaPilot** | Qwen3-8B | **DecideGen-Generator** |
-| **MediaPilot-mini** | Qwen3-1.7B | **DecideGen-Decider** |
+| **Domain-specific foundation model** (full) | Qwen3-8B-Base | **DecideGen-Generator** |
+| **Domain-specific foundation model** (lightweight) | Qwen3-1.7B-Base | **DecideGen-Decider** |
 
 - **Decider** receives the user profile, event background and current environmental context, encodes them (with structured behavioural labels) into decision tokens, predicts the label sequence, and decodes it into *action · target · sentiment*. Trained with cross-entropy over the reference decision tokens.
 - **Generator** is activated only for content-producing actions and additionally receives the Decider's predicted action · target · emotion. Trained with cross-entropy over the reference content tokens.
@@ -70,9 +70,9 @@ The two modules run **sequentially** inside CCSS: the Decider fixes *what / with
 
 - **Python** ≥ 3.9, **PyTorch** (bf16-capable GPU)
 - **Hugging Face Transformers**
-- **[LLaMA-Factory] v0.9.4.dev0** (training entry point; used unmodified, all hyperparameters from config)
+- **LLaMA-Factory v0.9.4.dev0** (training entry point; used unmodified, all hyperparameters from config)
 - **DeepSpeed** (ZeRO-2)
-- *(Optional, for baselines)* DeepSeek V4 via the `deepseek-chat` endpoint, and the official releases of PolicySim / OASIS / HiSim
+- *(Optional, for baselines)* **DeepSeek-V4-flash** accessed through the DeepSeek Chat API (`deepseek-chat` endpoint), and the official releases of PolicySim / OASIS / HiSim
 
 ### Training configuration
 
@@ -88,7 +88,7 @@ Trained on **8 × NVIDIA A100** GPUs.
 | Gradient accumulation | 2 | 2 |
 | Effective global batch | **128** | **64** |
 
-Common: bf16 mixed precision · DeepSpeed ZeRO-2 · max sequence length 4,096 · optimizer AdamW · checkpoints once per epoch · 1% of the corpus for validation (every 562 steps) · training seed = framework default (**42**); the simulator fixes its Python and NumPy generators at **1**.
+Common: bf16 mixed precision · DeepSpeed ZeRO-2 · max sequence length 4,096 · optimizer AdamW · checkpoints once per epoch · 1% of the corpus for validation · training seed = framework default (**42**); the simulator fixes its Python and NumPy generators at **1**.
 
 ```bash
 # install
@@ -150,34 +150,36 @@ This repository requires the companion dataset, which is **not yet public** (see
 
 | Artefact | Status |
 |---|---|
-| Code (this repo) | prepared · **private until publication** · **[[code-repository URL](https://github.com/xiangru-yin/decidegen-code)] ([DOI])** |
-| Dataset | prepared · **private until publication** · **[[data-repository URL]](https://github.com/xiangru-yin/decidegen-dataset) ([DOI])** |
-| Model checkpoints | **[to be confirmed — released / on request]** |
+| Code (this repo) | prepared · **private until publication** · **[https://github.com/xiangru-yin/decidegen-code](https://github.com/xiangru-yin/decidegen-code)** |
+| Dataset | prepared · **private until publication** · **[https://github.com/xiangru-yin/decidegen-dataset](https://github.com/xiangru-yin/decidegen-dataset)** |
+| Model checkpoints | DecideGen-Decider / DecideGen-Generator weights derived from Qwen3-1.7B-Base / Qwen3-8B-Base (Apache-2.0); release mode **[available on request] |
 
 ---
 
 ## License
 
-**[e.g. MIT — to be confirmed.]** Third-party components (LLaMA-Factory, Transformers, DeepSpeed, baselines) remain under their own licences.
+**[Apache-2.0; consistent with the Qwen3 base models.]** Third-party components (LLaMA-Factory, Transformers, DeepSpeed, baselines) remain under their own licences.
 
 ---
 
 ## Citation
 
 ```bibtex
-@article{[key],
-  title   = {[Paper title]},
-  author  = {[Author list]},
-  journal = {[Journal]},
-  year    = {[Year]},
-  doi     = {[DOI]}
-}
+@article{yin2026decidegen,
+  title   = {Simulating Social Media as It Unfolds: Faithful Collective Dynamics Emerge from Individual Behavioural Alignment},
+  author  = {Yin, Xiangru and Li, Huan and Tong, Shiyu and Chen, Zizhao and Ran, Shuyang and Zheng, Nanning and Wei, Ping},
+  journal = {Science Advances},
+  year    = {2026},
+  note    = {Under review},
+  doi     = {[DOI — to be added upon publication]}
 ```
 
 ---
 
 ## Contact
 
-**[Xiangru Yin]** — **[xiangruyin@stu.xjtu.edu.cn]** · **[Xi'an Jiaotong University College of Artificial Intelligence]**
+**Xiangru Yin** — xiangruyin@stu.xjtu.edu.cn · State Key Laboratory of Human-Machine Hybrid Augmented Intelligence, Institute of Artificial Intelligence and Robotics, Xi'an Jiaotong University, Xi'an 710049, Shaanxi, China
 
-*(Placeholders in `[brackets]` are to be filled in before public release.)*
+**Corresponding author** — Ping Wei, pingwei@xjtu.edu.cn
+
+*(Remaining items — repository DOIs and the data licence — will be filled in before public release.)*
